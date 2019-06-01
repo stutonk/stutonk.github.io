@@ -11,44 +11,44 @@ pipecrypt(1)			 USER COMMANDS			  pipecrypt(1)
 
 
 
- NAME
-        <a href="https://www.github.com/stutonk/pipecrypt">pipecrypt</a> - encrypt and decrypt streams with a key
+NAME
+       <a href="https://www.github.com/stutonk/pipecrypt">pipecrypt</a> - encrypt and decrypt streams with a key
 
- SYNOPSIS
-        pipecrypt [-h, -v] key
+SYNOPSIS
+       pipecrypt [-h, -v] key
+
+DESCRIPTION
+       pipecrypt is a lightweight alternatve to PGP for securely encrypting
+       streams using NaCl's secretbox. It expects a hexidecimal string as an
+       argument which should be 64 characters (32 bytes) long -- additional
+       characters are ignored. The program reads from STDIN and writes to
+       STDOUT.
+
+OPTIONS
+       -d, --decrypt
+              operate in decrypt mode
+
+       -h, --help
+              display help and exit
+
+       -v --version
+              output version information and exit
+
+SECURITY CONSIDERATIONS
+       This program was primarily designed to be used in scripts; be mindful
+       of your shell history when using it in interactive mode. The best
+       practice is to use your shell's command substitution functionality to
+       read the key from a file or output of some other program.
+
+AUTHOR
+       Joseph Eib (github.com/stutonk)
+
+SEE ALSO
+       passkey(1)
  
- DESCRIPTION
-        pipecrypt is a lightweight alternatve to PGP for securely encrypting
-        streams using NaCl's secretbox. It expects a hexidecimal string as an
-        argument which should be 64 characters (32 bytes) long -- additional
-        characters are ignored. The program reads from STDIN and writes to
-        STDOUT.
- 
- OPTIONS
-        -d, --decrypt
-               operate in decrypt mode
- 
-        -h, --help
-               display help and exit
- 
-        -v --version
-               output version information and exit
- 
- SECURITY CONSIDERATIONS
-        This program was primarily designed to be used in scripts; be mindful
-        of your shell history when using it in interactive mode. The best
-        practice is to use your shell's command substitution functionality to
-        read the key from a file or output of some other program.
- 
- AUTHOR
-        Joseph Eib (github.com/stutonk)
- 
- SEE ALSO
-        passkey(1)
  
  
- 
- version 1.0.0			  15 May 2019			  pipecrypt(1)     
+version 1.0.0			   15 May 2019			  pipecrypt(1)     
     </pre>
   </body>
 </html>

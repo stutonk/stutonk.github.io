@@ -11,45 +11,45 @@ passkey(1)                       USER COMMANDS                      passkey(1)
 
 
 
- NAME
-        <a href="https://www.github.com/stutonk/passkey">passkey</a> - generate a cryptographic key from a passphrase
+NAME
+       <a href="https://www.github.com/stutonk/passkey">passkey</a> - generate a cryptographic key from a passphrase
 
- SYNOPSIS
-        passkey [-h, -v] [-b] [-s salt] [passphrase]
+SYNOPSIS
+       passkey [-h, -v] [-b] [-s salt] [passphrase]
+
+DESCRIPTION
+       passkey is a simple utility for generating cryptographic keys from a
+       passphrase using the Argon2 algorithm. Passphrases may be any string
+       when passed as an argument or any sequence of bytes when read from
+       STDIN. The program will automatically generate a fresh 128-byte salt if
+       one is not provided as an option. Keys are output as 64 hexadecimal
+       characters (32 bytes when using binary output) prepended to the salt
+       that was used to generate them.
+
+OPTIONS
+       -b, --binary
+              output in binary mode
+
+       -h, --help
+              display help and exit
+
+       -s, --salt
+              provide salt as a hexidecimal string
+
+       -v, --version
+              output version information and exit
+
+EXAMPLES
+       passkey "some passphrase"
+
+       passkey -s 0123456789abcdef spaces in passphrases are okay too
+
+AUTHOR
+       Joseph Eib (github.com/stutonk)
+
+
  
- DESCRIPTION
-        passkey is a simple utility for generating cryptographic keys from a
-        passphrase using the Argon2 algorithm. Passphrases may be any string
-        when passed as an argument or any sequence of bytes when read from
-        STDIN. The program will automatically generate a fresh 128-byte salt if
-        one is not provided as an option. Keys are output as 64 hexadecimal
-        characters (32 bytes when using binary output) prepended to the salt
-        that was used to generate them.
- 
- OPTIONS
-        -b, --binary
-               output in binary mode
- 
-        -h, --help
-               display help and exit
- 
-        -s, --salt
-               provide salt as a hexidecimal string
- 
-        -v, --version
-               output version information and exit
- 
- EXAMPLES
-        passkey "some passphrase"
- 
-        passkey -s 0123456789abcdef spaces in passphrases are okay too
- 
- AUTHOR
-        Joseph Eib (github.com/stutonk)
- 
- 
- 
- version 1.1.0			  14 May 2019			    passkey(1)
+version 1.1.0			  14 May 2019			    passkey(1)
     </pre>
   </body>
 </html>
