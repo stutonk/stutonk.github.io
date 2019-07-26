@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="goban.css">
+    <script src="goban.js"></script>
+    <title>goban</title>
+  </head>
+  <body>
+    <canvas id="goban"></canvas>
+    <div class="controls">
+      <div class="w100" id="display">Black to play</div>
+      <div class="flexrow">
+        <a class="add push edit left grey3d on" id="+b" hidden>+</a>
+        <a class="sub edit left grey3d off" id="-b" hidden>-</a>
+        <span class="score left" id="capb">0</span>
+        <div class="circle black"></div>
+        <div class="circle white"></div>
+        <span class="score right" id="capw">0</span>
+        <a class="add push edit right grey3d on" id="+w">+</a>
+        <a class="sub edit right grey3d off" id="-w">-</a>
+      </div>
+      <div class="flexrow">
+        <a class="btn push w75 green3d" id="mode">mode — PLAY</a>
+      </div>
+      <div class="flexrow">
+          <a class="btn play w25 grey3d off" id="undo">undo</a>
+          <a class="btn play w25 grey3d off" id="redo">redo</a>
+          <a class="btn push edit w75 grey3d on" id="add?">Add Stones</a>
+      </div>
+    </div>
+  </body>
+</html>

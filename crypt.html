@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/style.css">
+        <title>stutonk website</title>        
+    </head>
+    <body id="top">
+        <header>
+            <nav>
+                <a href="/">stutonk website</a>
+            </nav>
+        </header>
+        <main>
+            <section>
+                <p>
+                    This is a set of command line tools for securing files and streams
+                    with simple passphrases and NaCl's secretbox encryption scheme. They
+                    were written so that regular people could avoid having to wade into any
+                    of that pgp/openssl nightmare. Each is written in Go, compiles to a
+                    binary with no dependencies, and is available for all major plafrorms.
+                </p>
+            </section>
+            <section>
+                <h2>pen</h2>
+                <p>
+                    pen {en,de}crypts files. If the filename ends in `.pen`, then it is decrypted.
+                    Otherwise it is encrypted.
+                    <pre>
+usage: pen [-h, -v] file [files...]
+Options are:
+    -h, --help      display this help and exit
+    -v, --version   output version information and exit
+                    </pre>
+                    <a href="https://github.com/stutonk/pen">project page</a>
+                </p>
+            </section>
+            <section>
+                <h2>pipecrypt</h2>
+                <p>
+                    pipecrypt reads STDIN and writes the {en,de}crypted result to STDOUT;
+                    it was designed to be used with the passkey program.
+                    <pre>
+usage: ./pipecrypt [-h, -v] key
+Reads from STDIN; writes to STDOUT
+Options are:
+    -d, --decrypt   operate in decrypt mode
+    -h, --help      display this help and exit
+    -v, --version   output version information and exit
+                    </pre>
+                    <a href="https://github.com/stutonk/pipecrypt">project page</a>
+                </p>
+            </section>
+            <section>
+                <h2>passkey</h2>
+                <p>
+                    passkey generates cryptographic keys from passphrases; it was design to
+                    used with pipecrypt.
+                    <pre>
+usage: passkey [-h, -v] [-s salt] [passphrase]
+If no passphrase given, read from STDIN
+Options are:
+    -h, --help          display this help and exit
+    -s, --salt string   provide salt as a hexidecimal string
+    -v, --version       output version information and exit
+                    </pre>
+                </p>
+                <a href="https://github.com/stutonk/passkey">project page</a>
+            </section>
+            <br />
+        </main>
+        <footer>
+            <a href="#top">goto top;</a>
+            <br />
+            all content is in the <a href="https://creativecommons.org/publicdomain/zero/1.0/">public domain</a>.
+            <br />
+            contact (@ xealblade (dot gmail com))
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,156 @@
+* {
+    margin: 0; padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (orientation: portrait) {
+    body {
+        flex-direction: column;
+    }
+
+    .controls{
+        flex: 0 0 100%;
+    }
+}
+
+@media screen and (orientation: landscape) {
+    .controls{
+        flex: 0 0 25%;
+    }
+}
+
+canvas {
+    display: block;
+}
+
+#display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.5rem;
+    font-size: 1.5rem;
+}
+
+.add {
+    padding: 0.2rem;
+    border-radius: 5px;
+}
+
+.black {
+    background: radial-gradient(circle at center, #333 0, black 100%);
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5rem;
+    height: 2rem;
+    border-radius: 5px;
+}
+
+.circle {
+    display: inline-block;
+    border-radius: 50%;
+    margin: 0 0.5rem;
+    width: 1.7rem;
+    height: 1.7rem;
+    box-shadow: 0px 3px 8px #aaa
+}
+
+.controls {
+    display: flex;
+    flex-flow: row wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.edit {
+    display: none;
+}
+
+.green3d {
+    position: relative;
+    background: darkgreen;
+    color: white;
+    border: solid 1px #000000;
+    box-shadow: 0px 4px 0px #001600;
+    transition: all 0.1s;
+}
+
+.grey3d {
+    position: relative;
+    background: white;
+    box-shadow: 0px 4px 0px #ccc;
+    transition: all 0.1s;
+}
+
+.off {
+    color: lightgrey;
+    border: solid 1px #ccc;
+}
+
+.on {
+    color: black;
+    border: solid 1px #999;
+}
+
+.push:active {
+    position: relative;
+    top: 4px;
+    box-shadow: 0px 0px 0px 0px;
+}
+
+.flexrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 100%
+}
+
+.left {
+    margin-left: 0.5rem;
+}
+
+.red3d {
+    background: darkred;
+    color: white;
+    border: solid 1px #000000;
+    box-shadow: 0px 4px 0px #150000;
+    transition: all 0.1s;
+}
+
+.right {
+    margin-right: 0.5rem;
+}
+
+.score {
+    width: 3rem;
+    text-align: right;
+    font-size: 1.5rem;
+}
+
+.sub {
+    padding: 0.2rem 0.4rem;
+    border-radius: 5px;
+}
+
+.w100 {
+    flex: 0 0 100%;
+}
+
+.w75 {
+    flex: 0 0 75%;
+}
+
+.w25 {
+    flex: 0 0 25%;
+}
+
+.white {
+    background: radial-gradient(circle at center, white 0, #eee 100%);
+}

@@ -1,0 +1,35 @@
+body {
+    font-family: monospace, monospace;
+    max-width: 38rem;
+    padding: 2rem;
+    margin: auto;
+}
+
+body {
+    background: #ffede7;
+    color:      #3c3836;
+}
+
+a {
+    color: #1034a6;
+}
+
+a:visited {
+    color: #3c1414;
+}
+
+nav>a {
+    text-decoration: none;
+}
+
+nav>a:hover {
+    text-decoration: underline;
+}
+
+nav>a:link, nav>a:visited {
+    color: rgb(0, 75, 0);
+}
+
+h1, h2, h3, h4, h5 {
+    margin-bottom: .1rem;
+}
