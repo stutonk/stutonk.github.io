@@ -1,3 +1,7 @@
+/**
+ * Text labels for control interface buttons.
+ * @constant 
+ */
 const Btn = {
     UNDO: "undo",
     REDO: "redo",
@@ -9,21 +13,40 @@ const Btn = {
     WM:   "-w",
 }
 
+/**
+ * Enumeration of goban edit modes.
+ * @constant
+ * @enum
+ */
 const Edit = {
     ADD: 0,
     SUB: 1,
 }
 
+/**
+ * Enumeration of play modes.
+ * @constant
+ * @enum
+ */
 const Mode = {
     PLAY: 0,
     EDIT: 1,
 }
 
+/**
+ * Enumeration of players.
+ * @constant
+ * @enum
+ */
 const Player = {
     B: 0,
     W: 1,
 }
 
+/**
+ * A cartesian goban position whose origin is the upper left corner.
+ * @class
+ */
 class Point {
     constructor(x, y) {
         this.x = x;
@@ -31,7 +54,16 @@ class Point {
     }
 }
 
+/**
+ * Represents the visual and logical state for a goban.
+ * @class
+ */
 class Board {
+    /**
+     * Create a new goban.
+     * @param {number} size The initial board size (in play positions per row/col).
+     * @param {Object} ctx The canvas context on which to draw.
+     */
     constructor(size, ctx) {
         this.state = new Array(size * size).fill(null);
         this.ctx = ctx;
@@ -41,6 +73,10 @@ class Board {
         this.bg = "#fad6a5";
         this.fg = "#724506";
     }
+    /**
+     * Resize the goban to more or less play positions.
+     * @param {number} size The new board size (in play positions per line row/col).
+     */
     resize(size) {
         this.size = size;
         this.pxSize = this.ctx.canvas.width;
@@ -55,9 +91,18 @@ class Board {
             }
         });
     }
+    /**
+     * Determine the play position at a certain pixel coordinate.
+     * @param {number} px The pixel's X coordinate
+     * @param {number} py The pixel's Y coordinate
+     * @returns {Point} A Point that corresponds to the pixel's play position.
+     */
     pxCoord(px, py) {
         return new Point(Math.round(px / this.rule), Math.round(py / this.rule));
     }
+    /**
+     * Draw the goban board and play grid as well as any markers.
+     */
     draw() {
         this.ctx.fillStyle = this.bg;
         this.ctx.fillRect(0, 0, this.pxSize, this.pxSize);
@@ -87,6 +132,10 @@ class Board {
             }
         }
     }
+    /**
+     * Draw a visual marker dot at a play position.
+     * @param {Point} p The play position at which to draw the marker dot.
+     */
     drawMarker(p) {
         this.ctx.fillStyle = this.fg;
         let dotRad = this.pxSize / 150;
@@ -95,6 +144,11 @@ class Board {
         this.ctx.fill();
         this.ctx.closePath();
     }
+    /**
+     * Draw a stone on the goban.
+     * @param {Player} player The color of the stone to draw.
+     * @param {Point} p The play position at which to draw the stone.
+     */
     drawStone(player, p) {
         this.ctx.fillStyle = (player === Player.B) ? "#000000" : "#ffffff";
         this.ctx.beginPath();
@@ -102,6 +156,10 @@ class Board {
         this.ctx.fill();
         this.ctx.closePath();
     }
+    /**
+     * Erase a stone from the goban, redrawing a marker dot as necessary.
+     * @param {Point} p The play position at which to erase the stone.
+     */
     eraseStone(p) {
         let cx = p.x * this.rule;
         let cy = p.y * this.rule;
@@ -145,6 +203,11 @@ class Board {
             this.drawMarker(p);
         }
     }
+    /**
+     * Get which player's stone is at a certian play position.
+     * @param {Point} p The play position whose value to get.
+     * @returns {Player} The player who holds this position.
+     */
     get(p) {
         if (p.x < 1 || p.x > this.size) {
             return undefined;
@@ -154,6 +217,12 @@ class Board {
         }
         return this.state[(p.y - 1) * this.size + (p.x - 1)];
     }
+    /**
+     * Set a play position to be held by a certain player.
+     * @param {Point} p The play position whose value to set.
+     * @param {Player} val The player who will hold this position.
+     * @returns {Player} The player who now holds this position.
+     */
     set(p, val) {
         if (p.x < 1 || p.x > this.size) {
             return undefined;
@@ -163,6 +232,11 @@ class Board {
         }
         return this.state[(p.y - 1) * this.size + (p.x - 1)] = val;
     }
+    /**
+     * Finds a connected group of stones which have no liberties.
+     * @param {Point} p The play position to check.
+     * @returns {Point[]} The group of stones which has no liberties.
+     */
     noLibs(p) {
         let stack = [p];
         let player = this.get(p);
@@ -223,6 +297,11 @@ class Board {
         }
         return conn;
     }
+    /**
+     * Determines which group of connected stones, if any, are captured by a given move.
+     * @param {Point} p The play position to check
+     * @returns {Point[]} The group of stones captured by this move.
+     */
     capture(p) {
         let player = this.get(p);
         let res = [];
@@ -262,6 +341,10 @@ class Board {
         return res.reduce((acc, curr) => acc.concat(curr), []);
     }
 }
+
+/**
+ * Represents the flow of gameplay, the goban, and the associated interface controls.
+ */
 class Game {
     constructor(size, ctx) {
         this.mode = Mode.PLAY;
@@ -275,10 +358,16 @@ class Game {
         this.redoSt = [];
         this.controls = new Controls();
     }
+    /**
+     * Toggle whose turn it is to play.
+     */
     nextTurn() {
         this.turn = (this.turn === Player.B) ? Player.W : Player.B;
         this.controls.setDisplay(this.turn);
     }
+    /**
+     * Redo the previous move, if available, and update the respetive controls.
+     */
     redo() {
         if (this.redoSt.length == 0) {
             return;
@@ -299,6 +388,9 @@ class Game {
         }
         this.nextTurn();
     }
+    /**
+     * Undo the previous move, if available, and update the respective controls.
+     */
     undo() {
         if (this.undoSt.length == 0) {
             return;
@@ -320,6 +412,9 @@ class Game {
         }
         this.nextTurn();
     }
+    /**
+     * Clear the undo and redo histories and reset respective game controls.
+     */
     clearHist() {
         this.undoSt = [];
         this.redoSt = [];
@@ -328,16 +423,33 @@ class Game {
     }
 }
 
+/**
+ * Represents the visual state of interface controls.
+ * @class
+ */
 class Controls {
     constructor() {}
+    /**
+     * Enable a button and make it pushable.
+     * @param {string} btn The id of the button to enable.
+     */
     enableButton(btn) {
         document.getElementById(btn).classList.replace("off", "on");
         document.getElementById(btn).classList.add("push");
     }
+    /**
+     * Disable a button and make it unpushable.
+     * @param {string} btn The id of the button to disable.
+     */
     disableButton(btn) {
         document.getElementById(btn).classList.replace("on", "off");
         document.getElementById(btn).classList.remove("push");
     }
+    /**
+     * Change the player turn display.
+     * @param {Player} player The player to whom to set the display.
+     * @param {boolean} editp Whether or not we are in edit mode.
+     */
     setDisplay(player, editp = false) {
         let pname = (player === Player.B) ? "Black" : "White";
         let disp = document.getElementById("display");
@@ -347,6 +459,11 @@ class Controls {
             disp.innerHTML = pname + " to play";
         }
     }
+    /**
+     * Changes the visual state of controls to reflect a specific mode and player.
+     * @param {Mode} mode The mode to which to set the controls.
+     * @param {Player} player The player whose turn it is.
+     */
     setMode(mode, player) {
         console.log(player);
         let mb = document.getElementById(Btn.MODE);
@@ -376,10 +493,19 @@ class Controls {
             this.setDisplay(player);
         }
     }
+    /**
+     * Change the visual state of the edit mode display button.
+     * @param {Edit} mode The edit mode to set.
+     */
     setEditMode(mode) {
         document.getElementById(Btn.ADDP).innerHTML =
             (mode === Edit.ADD) ? "Add Stones" : "Remove Stones";
     }
+    /**
+     * Change the visual display of stones captured by a particular player.
+     * @param {Player} player The player whose tally to change.
+     * @param {number} n The value to which to change the tally.
+     */
     updateCaptured(player, n) {
         let capId = ""
         let btnId = "";
@@ -399,6 +525,7 @@ function goban(canvas) {
     let ctx = canvas.getContext("2d");
     let gameSize = 19;
 
+    // set the initial size
     function resizeCanvas() {
         if (window.innerWidth > window.innerHeight) {
             ctx.canvas.width = window.innerHeight;
@@ -414,6 +541,7 @@ function goban(canvas) {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas, false);
 
+    // when in edit mode, clicking on the display changes players
     document.getElementById("display").addEventListener("click", ev => {
         if (game.mode == Mode.EDIT) {
             if (game.turn === Player.B) {
@@ -460,6 +588,7 @@ function goban(canvas) {
         game.controls.setEditMode(game.editMode);
     });
 
+    // actual gameplay
     canvas.addEventListener("click", ev => {
         let p = game.board.pxCoord(ev.offsetX, ev.offsetY);
         if (game.mode === Mode.PLAY) {
@@ -486,6 +615,10 @@ function goban(canvas) {
                         return;
                     }
                 }
+
+                // 25 Sept 2019: fix two-turn bug where you can move, undo, move, redo
+                game.redoSt = [];
+
                 game.redoSt.push({player: game.turn, p: p, captured: captured});
                 game.redo();
             }
