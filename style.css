@@ -33,3 +33,15 @@ nav>a:link, nav>a:visited {
 h1, h2, h3, h4, h5 {
     margin-bottom: .1rem;
 }
+
+pre {
+    padding: 0.3rem;
+    font-size: 0.875rem;
+    background: #ffffff;
+}
+
+.inline {
+    white-space: nowrap;
+    padding: 0 0.3rem 0 0.3rem;
+    background: #ffffff;
+}
